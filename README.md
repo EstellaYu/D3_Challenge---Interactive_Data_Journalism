@@ -1,9 +1,9 @@
 # D3 - Data Journalism
 
 ## Welcome to the newsroom! 
-<span align="center">
+<p align="center">
   <img src = "https://media.giphy.com/media/v2xIous7mnEYg/giphy.gif">
-</span>
+</p>
 <hr>
 
 ![Animation](https://github.com/EstellaYu/D3_Challenge---Interactive_Data_Journalism/blob/master/WebPageCode/static/data/animation.gif)
