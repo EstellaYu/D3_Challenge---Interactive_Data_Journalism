@@ -22,8 +22,6 @@ MOE stands for "margin of error."
 
 ### 1: D3 Dabbler
 
-![4-scatter](Images/4-scatter.jpg) 
-
 1. Create a sample scatter plot between two of the data variables, such as `Healthcare vs. Poverty`.
 
 2. Using the D3 techniques, create a scatter plot that represents **each state** with **circle elements**. 
@@ -41,8 +39,6 @@ MOE stands for "margin of error."
 ### 2: More Data, More Dynamics
 
 Why make a static graphic when D3 lets you interact with your data?
-
-![7-animated-scatter](Images/7-animated-scatter.gif)
 
 #### Switchable axes
 
