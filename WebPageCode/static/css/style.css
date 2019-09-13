@@ -17,6 +17,13 @@
   display: none;
 }
 
+.titlefont {
+  font-size: 65px;
+  background: -webkit-linear-gradient(red, blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .active {
   text-anchor: middle;
 }

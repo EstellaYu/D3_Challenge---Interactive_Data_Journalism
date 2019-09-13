@@ -20,13 +20,12 @@ function resizeCanvas() {
     var svg = d3.select("#scatter").select("svg") 
     if (!svg.empty()){svg.remove();};
 
-    svgHeight = window.innerHeight * 0.6;
-    svgWidth = window.innerWidth * 0.85;
+    svgHeight = window.innerHeight * 0.65;
+    svgWidth = window.innerWidth * 0.8;
 
-    margin_size = 100;
     margin = {
         left: 100,
-        top: 30,
+        top: 100,
         right: 150,
         bottom: 100 
     };
@@ -66,7 +65,7 @@ function makeScatter(data, chartGroup){
 
     // add circle-text Group
     var elementGroup = chartGroup.selectAll("#circleTextGroup")
-    if (!elementGroup.empty) { elementGroup.remove()}
+    if (!elementGroup.empty) {elementGroup.remove()}
 
     elementGroup = chartGroup.selectAll("#circleTextGroup")
                             .data(data)
@@ -141,6 +140,20 @@ function makeScatter(data, chartGroup){
 
     var circles = updateToolTip(chosenX,chosenY,circles);
 
+    var title = chartGroup.append("text")
+                            .attr("id", "plot-title")
+                            .attr("transform", `translate(${chartWidth / 2}, -20)`)
+                            .attr("font-size", 36)
+                            .attr("text-anchor", "middle")
+                            .attr("font-weight","bold")
+                            .text(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
+    
+    // add text
+    var key = chosenX.concat("-", chosenY)
+    d3.select("#article")
+        .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` + 
+                `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}<br><br><br><br>`)
+
     // create on-click listening events function
     xlabelGroup.selectAll("text").on("click", function(){
         // get current label
@@ -163,6 +176,15 @@ function makeScatter(data, chartGroup){
                        .classed("inactive", true)
             d3.select(this).classed("inactive", false)
                            .classed("active", true)
+            
+            // update title
+            d3.select("#plot-title").text(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
+            
+            // update text description
+            var key = chosenX.concat("-", chosenY)
+            d3.select("#article")
+                .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` + 
+                    `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}<br><br><br><br>`)
         }
     })
     ylabelGroup.selectAll("text").on("click", function(){
@@ -186,8 +208,18 @@ function makeScatter(data, chartGroup){
                        .classed("inactive", true)
             d3.select(this).classed("inactive", false)
                            .classed("active", true)
+            
+            // update title
+            d3.select("#plot-title")
+                .html(`${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())} vs. ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}`)
+            // update text description
+            var key = chosenX.concat("-", chosenY)
+            d3.select("#article")
+                .html(`<br><hr><h4>Correlation between <em><b>${chosenX}</b></em> and <em><b>${chosenY}</b></em></h4>` + 
+                        `<br>A <em><b>${p_desc[key]["pm"]}</b></em> correlation is found between ${p_desc[key]["text"]}`)
         }
     })
+    
 }
 
 function updateToolTip(chosenX, chosenY, circles){
@@ -213,8 +245,8 @@ function updateToolTip(chosenX, chosenY, circles){
                 ------------------------<br>\
                 ${chosenX.replace(chosenX[0], chosenX[0].toUpperCase())}: ${d[chosenX]}${xAddOn}<br>\
                 ${chosenY.replace(chosenY[0], chosenY[0].toUpperCase())}: ${d[chosenY]}%`)
-            .style("left", (d3.event.pageX - 130) + "px")
-            .style("top", (d3.event.pageY - 50) + "px")
+            .style("left", (d3.event.pageX - margin.left - 50) + "px")
+            .style("top", (d3.event.pageY - margin.top - 150) + "px")
         toolTip.style("display", "block")
                 .style("opacity", "0.9")
     })
